@@ -2,7 +2,11 @@ f = open("my.txt", "r")
 h = f.read().split()
 f.close()
 
+def myround(x, base=20):
+    return base * round(x/base)
+
 mydict = {}
+
 
 for line in h:
     (x,y) = line.split(",")
@@ -28,24 +32,25 @@ for key in mydict:
     if int(key) < lowest:
         lowest = int(key)
 
-for i in range(lowest,highest+1,20):
+for i in range(myround(lowest)-20,myround(highest)+20+1,20):
     newdict.update({i:(0,0)})
 
-def myround(x, base=5):
-    return base * round(x/base)
+
 
 for key in mydict:
-    i = newdict[str(myround(float(key),20))]
+
+    i = newdict[int(myround(float(key),20))]
     newdict.update({myround(float(key),20):(i[0]+mydict[key][0],i[1]+mydict[key][1])})
 print(newdict)
-    
-# for key in mydict:
-#     i = mydict[key]
-#     mydict.update({key:(i[0]/i[1])})
-# print(mydict)
+input()
 
-# f = open("new.txt","w")
-# for key in mydict:
-#     f.write("{},{}\n".format(key,mydict[key]))
+for key in newdict:
+    i = mydict[key]
+    mydict.update({key:(i[0]/i[1])})
+print(mydict)
+
+f = open("new.txt","w")
+for key in mydict:
+    f.write("{},{}\n".format(key,mydict[key]))
     
     
