@@ -45,12 +45,16 @@ print(newdict)
 input()
 
 for key in newdict:
-    i = mydict[key]
-    mydict.update({key:(i[0]/i[1])})
-print(mydict)
+    i = newdict[key]
+    try:
+        newdict.update({key:(i[0]/i[1])})
+    except ZeroDivisionError:
+        newdict.update({key:0})
+    
+print(newdict)
 
 f = open("new.txt","w")
-for key in mydict:
-    f.write("{},{}\n".format(key,mydict[key]))
+for key in newdict:
+    f.write("{},{}\n".format(key,newdict[key]))
     
     
